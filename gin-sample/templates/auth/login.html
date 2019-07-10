@@ -1,0 +1,46 @@
+{% extends "../base.html" %}
+{% block content %}
+
+<h1>Sign In</h1>
+<form action="/loginForm" method="post" novalidate>
+    {{form.hidden_tag()}}
+    <div class="form-group">
+        {% comment %} <label class="form-label" for="username">{{form.username.label}}</label> {% endcomment %}
+        <label class="form-label" for="username">username</dlabel>
+        {% comment %} {{form.username(size=32,class="form-input")}} {% endcomment %}
+        <input class="form-input" name="username" type="text" > 
+        {% for error in form.username.errors %}
+        <span style="color:red;">[{{error}}]</span>
+        {% endfor %}
+        <p>
+            {% comment %} <label class="form-label" for="password">{{form.password.label}}</label> {% endcomment %}
+            <label class="form-label" for="password">password</dlabel>
+            {% comment %} {{form.password(size=32,class="form-input")}} {% endcomment %}
+            <input class="form-input" name="password" type="text"  > 
+            {% for error in form.password.errors %}
+            <span style="color:red;">[{{error}}]</span>
+            {% endfor %}
+            <p>
+
+                <div class="form-group">
+                    <label class="form-checkbox">
+                        {{form.remember_me}} 
+                        <i class="form-icon"></i>{{form.remember_me.label}}
+                    </label>
+                </div>
+
+
+            </p>
+            <p>
+                {% comment %} {{form.submit(class="btn btn-primary")}} {% endcomment %}
+                <input class="btn btn-primary" type="submit" value="Submit">
+            </p>
+            <p>
+                Forgot Your Password?
+                <a href="{{ url_for('auth.reset_password_request') }}">Click to Reset It</a>
+            </p>
+    </div>
+</form>
+<p>New User? <a href="{{ url_for('auth.register') }}">Click to Register!</a></p>
+
+{% endblock %}

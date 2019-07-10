@@ -1,0 +1,36 @@
+<h1>Sign In</h1>
+<form action="" method="post" novalidate>
+    {{.put_hidden_tag}}
+    <div class="form-group">
+        <label class="form-label" for="username">{{.form.username.label}}</label>
+        {{.form.username}}
+        {{ range .form.username.errors }}
+        <span style="color:red;">[{{.}}]</span>
+        {{ end }}
+        <p>
+            <label class="form-label" for="password">{{.form.password.label}}</label>
+            {{.form.password}}
+            {{ range .form.password.errors }}
+            <span style="color:red;">[{{.}}]</span>
+            {{ end }}
+            <p>
+
+                <div class="form-group">
+                    <label class="form-checkbox">
+                        {{.form.remember_me}} 
+                        <i class="form-icon"></i>{{.form.remember_me.label}}
+                    </label>
+                </div>
+
+
+            </p>
+            <p>
+                {{.form.submit}}
+            </p>
+            <p>
+                Forgot Your Password?
+                <a href="{{.url_for}}">Click to Reset It</a>
+            </p>
+    </div>
+</form>
+<p>New User? <a href="{{ .url_for }}">Click to Register!</a></p>

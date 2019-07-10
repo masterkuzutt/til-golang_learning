@@ -1,0 +1,15 @@
+<table class="table" > 
+    <!-- <tr vilign="top" > -->
+    <tr>
+        <td style="width:70px;">
+            <figure class="avatar avatar-x1">
+                <img src="{{ post.author.avatar(36)}}" alt="">
+            </figure>
+        </td>
+        <td>
+            <a href="{{ url_for('main.user', username=post.author.username) }}">@{{ post.author.username }}</a>
+            said {{ moment(post.timestamp).fromNow() }}<br>
+        <span id="{{ post.id }}">{{ post.body }}</span>
+        </td>
+    </tr>
+</table>

@@ -1,0 +1,113 @@
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- <link rel="stylesheet" href="css/base.css"> -->
+    <link rel="stylesheet" type="text/css" href="https://necolas.github.io/normalize.css/8.0.1/normalize.css">
+    <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre-exp.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre-icons.min.css">
+
+    <!-- for moment.js. different from example because of lack of bootstrap -->
+   
+    {{ if .title }}
+    <title>{{ .title}} - Microblog</title>
+    {{ else }}
+    <title>Welcome to Microblog!</title>
+    {{ end }}
+</head>
+
+<body>
+    <div class="off-canvas">
+        <div id="sidebar-id" class="off-canvas-sidebar">
+            <div class="container navbar bg-gray" style="height:2.5rem">
+                <section class="navbar-section">
+                    <a class="btn btn-link btn-action" href="#close">
+                        <i class="icon icon-menu text-gray mt-2" style="font-size:20px;"></i>
+                    </a>
+                </section>
+                <section class="navbar-section">
+                    <!-- <span class="h4">blog</span> -->
+                </section>
+            </div>
+            <div class="container">
+                <ul class="nav">
+                    <li class="nav-item"><a href="#">Home</a></li>
+                    <li class="nav-item"><a href="#">Explore</a></li>
+                    {{ if .current_user.is_anonymous }}
+                    <li class="nav-item"><a href="#">Login</a></li>
+                    {{ else }}
+                    <li class="nav-item"><a href="#">Profile</a>
+                    </li>
+                    <li class="nav-item"><a href="#}">Logout</a></li>
+                    {{ end }}
+                </ul>
+            </div>
+        </div>
+        <a class="off-canvas-overlay" href="#close"></a>
+        <div class="container navbar p-fixed bg-gray" style="z-index:99;height:2.5rem">
+            <section class="navbar-section">
+                <a class="btn btn-link btn-action" href="#sidebar-id">
+                    <i class="icon icon-menu text-gray mt-1" style="font-size:20px;"></i>
+                </a>
+                <a href="#" class="navbar-brand text-dark m-2">
+                    <span class="h4">Microblog</span>
+                </a>
+
+            </section>
+            <section class="navbar-section">
+                
+                {{ if .g.search_form }}
+                <form class="form-horizontal" method="get" action=""
+                    style='margin-block-end:0em'>
+                    <div class="has-icon-right">
+                        <i class="form-icon icon icon-search"></i>
+                        <!-- <i class="form-icon loading"></i> -->
+                    </div>
+                </form>
+                {{ end }}
+            </section>
+        </div>
+        <div class="off-canvas-content p-2 m-2">
+            <div class="container col-xs-12 col-8" style="padding:2rem 0rem 0rem 0rem">
+                {{ if .messages }}
+                    <div class="container">
+                        {{ range .messages }}
+                         <div class="toast">{{ .}}</div>
+                        {{ end }}
+                    </div>
+                {{ end }}
+<span class="h4">Hello, {{.current_user.username}} !</span>
+{{if .form}}
+<form action="" method="post">
+    <div class="form-group">
+        <p>
+            <label class="form-label">
+            {{ .form.post.label }}
+            </label>
+            {{range .form.post.errors }}
+                <span style="color: red;">[{{ . }}]</span>
+            {{ end }}
+        </p>
+        <p></p>
+    </div>
+</form>
+{{ end }}
+{{range .posts }}
+<!-- {% include '_post.html' %} -->
+{{ end }}
+
+{{ if .prev_url }}
+<a href="{{ .prev_url }}">Newer posts</a>
+{{end}}
+{{ if .next_url }}
+<a href="{{ .next_url }}">Older posts</a>
+{{ end }}
+    </div>
+        </div>
+    </div>
+    </div>
+</body>
+
+</html>
+
