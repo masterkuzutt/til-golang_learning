@@ -2,6 +2,9 @@
 ## unexpected nul in input
 - https://stackoverflow.com/questions/47347191/go-error-unexpected-nul-in-input?rq=1
 - windowsで　echo ""> file.go でファイルを作るとエンコーディングがUTF-8になっていないために発生。
+# 気になった点
+- ginのrun.goのmainの中の実行はいつ走るのか？初回リクエスト受けるまでは知らないように見えた。
+
 # Web Application Framework 
 ### gin
 #### hot-reload
@@ -38,7 +41,16 @@
 ## gorm
 - https://gorm.io/
 
+# clean architecture
+- http://nakawatch.hatenablog.com/entry/2018/07/11/181453
+- https://github.com/nakabonne/cleanarchitecture-sample/tree/master/src/cleanarchitecture-sample
+- (右下の図)[https://nrslib.com/clean-flow-of-control/]
+# test 
+- https://re-engines.com/2018/10/16/go-testify%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%A6%E3%83%86%E3%82%B9%E3%83%88%E4%BD%9C%E6%88%90/
 
 # Webアプリの話
 ## リダイレクトの時のステータスコードの話
 - https://stackoverflow.com/questions/2839585/what-is-correct-http-status-code-when-redirecting-to-a-login-page
+
+# セキュアコーディング
+- https://golang.shop/post/go-scp-010-introduction-ja/

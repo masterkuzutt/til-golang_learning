@@ -1,6 +1,7 @@
 package main
 
 import (
+	"examples/gin-sample/usecase"
 	"log"
 
 	// "net/http"
@@ -16,15 +17,11 @@ import (
 	auth_route "examples/gin-sample/auth/route"
 	main_route "examples/gin-sample/main/route"
 
-	"github.com/jinzhu/gorm"
-	_ "github.com/jinzhu/gorm/dialects/sqlite"
+	"examples/gin-sample/externals/sqlite"
+	"examples/gin-sample/adapter/controller"
+	"examples/gin-sample/adapter/presenter"
+	"examples/gin-sample/usecase"
 )
-
-type Users struct {
-	gorm.Model
-	Usernane string
-	Password string
-}
 
 func sampleMiddleware() gin.HandlerFunc {
 	return func(c *gin.Context) {
@@ -72,20 +69,6 @@ func login(c *gin.Context) {
 func main() {
 
 	//[TODO] think when to put
-	db, err := gorm.Open("sqlite3", "test.db")
-	if err != nil {
-		panic("failed to connect database")
-	}
-	defer db.Close()
-
-	// Migrate the schema
-	db.AutoMigrate(&User{})
-
-	// Create
-	db.Create(&User{Username: "kuzu", Password: "kuzukuzu"})
-	var u Users
-	db.First(&U)
-	fmt.Println("DBDATA:",U.Username,U.password)	  
 
 	router := gin.Default()
 	router.Use(sampleMiddleware())
@@ -109,5 +92,10 @@ func main() {
 	// router.GET("/login", login)
 	// router.POST("/login", login)
 
-	router.Run()
+	// router.Run()
+	repository := &repository.UserRepository{"Conn":sqlite.Connect()}
+	outputport := &presenter.ToConsolePresenter{}
+	interactor := &usecase.UserInteractor{"UserRepository": ,"outputport": outputportut}
+	controller := &controller.UserListController{}
+	controller.Execute("kuzu")
 }
