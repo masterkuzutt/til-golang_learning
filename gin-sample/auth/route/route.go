@@ -24,7 +24,7 @@ func Login(c *gin.Context) {
 
 	current_user.Set("name", "kuzu")
 
-	tplpath := filepath.Join(os.Getenv("GOPATH"), "src/examples/gin-sample/templates/auth/login.html")
+	tplpath := filepath.Join(os.Getenv("GOPATH"), "src/til-golang_learning/gin-sample/templates/auth/login.html")
 	// tplpath := "templates/index.html"
 
 	tpl, err := pongo2.FromFile(tplpath)

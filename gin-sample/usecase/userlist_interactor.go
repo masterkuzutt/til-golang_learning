@@ -1,12 +1,12 @@
 package usecase
 
 import (
-	"examples/gin-sample/usecase/interfaces"
+	"til-golang_learning/gin-sample/usecase/interfaces"
 )
 
 type UserInteractor struct {
 	UserRepository interfaces.UserRepository
-	outputport     interfaces.IUserListOutputPort
+	Outputport     interfaces.IUserListOutputPort
 }
 
 // [TODO]このユースケースが引数にEntityをとるのはまずいかもしれない。
@@ -24,5 +24,6 @@ func (i *UserInteractor) Handle(username string) {
 	for _, user := range users {
 		data = append(data, user.Username)
 	}
-	i.outputport.Emit(data)
+	i.Outputport.Emit(data)
+
 }

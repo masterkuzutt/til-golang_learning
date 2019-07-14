@@ -5,9 +5,10 @@ import (
 )
 
 type ToConsolePresenter struct {
-	hoge string
+	hoge []string
 }
 
-func (p *ToConsolePresenter) Emit(data string) {
+func (p *ToConsolePresenter) Emit(data []string) {
 	fmt.Println(data)
+
 }

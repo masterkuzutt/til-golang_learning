@@ -5,7 +5,7 @@ import (
 
 	"github.com/stretchr/testify/assert"
 
-	"examples/gin-sample/adapter/gateway"
+	"til-golang_learning/gin-sample/adapter/gateway"
 )
 
 func TestConnect(t *testing.T) {

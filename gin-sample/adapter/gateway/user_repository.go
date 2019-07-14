@@ -1,7 +1,7 @@
 package gateway
 
 import (
-	"examples/gin-sample/domain"
+	"til-golang_learning/gin-sample/domain"
 
 	"github.com/jinzhu/gorm"
 )

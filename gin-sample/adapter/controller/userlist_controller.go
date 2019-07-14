@@ -1,12 +1,12 @@
 package controller
 
 import (
-	"examples/gin-sample/usecase/interfaces"
+	"til-golang_learning/gin-sample/usecase/interfaces"
 )
 
 type UserListController struct {
 	//初期化の時に渡してやる？
-	inputport interfaces.IUserListInputPort
+	Inputport interfaces.IUserListInputPort
 }
 
 // domein や external,repositoryに依存しまくっている。
@@ -19,7 +19,7 @@ type UserListController struct {
 // }
 func (controller *UserListController) Execute(username string) {
 
-	controller.inputport.Handle(username)
+	controller.Inputport.Handle(username)
 
 	// if err != nil {
 	// 	c.JSON(500, NewError(500, err.Error()))

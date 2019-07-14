@@ -82,7 +82,7 @@ func main() {
 	dir := filepath.Dir(exe)
 	fmt.Println(dir)
 
-	path := "C:\\Users\\t_sakai\\go\\src\\local\\examples\\files\\test.txt"
+	path := "C:\\Users\\t_sakai\\go\\src\\local\\til-golang_learning\\files\\test.txt"
 	// writeTextFile(path)　//ファイル上書きしてしまう。
 	readTextFile(path)
 

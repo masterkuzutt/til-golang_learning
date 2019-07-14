@@ -1,7 +1,6 @@
 package main
 
 import (
-	"examples/gin-sample/usecase"
 	"log"
 
 	// "net/http"
@@ -14,13 +13,14 @@ import (
 	"github.com/gin-contrib/sessions/memstore"
 	"github.com/gin-gonic/gin"
 
-	auth_route "examples/gin-sample/auth/route"
-	main_route "examples/gin-sample/main/route"
+	auth_route "til-golang_learning/gin-sample/auth/route"
+	main_route "til-golang_learning/gin-sample/main/route"
 
-	"examples/gin-sample/externals/sqlite"
-	"examples/gin-sample/adapter/controller"
-	"examples/gin-sample/adapter/presenter"
-	"examples/gin-sample/usecase"
+	"til-golang_learning/gin-sample/adapter/controller"
+	"til-golang_learning/gin-sample/adapter/gateway"
+	"til-golang_learning/gin-sample/adapter/presenter"
+	"til-golang_learning/gin-sample/externals/sqlite"
+	"til-golang_learning/gin-sample/usecase"
 )
 
 func sampleMiddleware() gin.HandlerFunc {
@@ -75,7 +75,7 @@ func main() {
 	// router.Use(abortMiddleWare())
 
 	//pongo2では不要
-	// router.LoadHTMLGlob(filepath.Join(os.Getenv("GOPATH"), "src/examples/gin-sample/templates/*"))
+	// router.LoadHTMLGlob(filepath.Join(os.Getenv("GOPATH"), "src/til-golang_learning/gin-sample/templates/*"))
 
 	// cookieの場合
 	// store := cookie.NewStore([]byte("scret"))
@@ -93,9 +93,9 @@ func main() {
 	// router.POST("/login", login)
 
 	// router.Run()
-	repository := &repository.UserRepository{"Conn":sqlite.Connect()}
+	repository := &gateway.UserRepository{Conn: sqlite.Connect()}
 	outputport := &presenter.ToConsolePresenter{}
-	interactor := &usecase.UserInteractor{"UserRepository": ,"outputport": outputportut}
-	controller := &controller.UserListController{}
+	interactor := &usecase.UserInteractor{UserRepository: repository, Outputport: outputport}
+	controller := &controller.UserListController{Inputport: interactor}
 	controller.Execute("kuzu")
 }

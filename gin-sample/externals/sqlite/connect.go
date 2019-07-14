@@ -1,7 +1,7 @@
 package sqlite
 
 import (
-	"examples/gin-sample/adapter/gateway"
+	"til-golang_learning/gin-sample/adapter/gateway"
 
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/sqlite"

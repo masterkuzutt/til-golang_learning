@@ -18,7 +18,7 @@ func Root(c *gin.Context) {
 	current_session := sessions.Default(c)
 	log.Println("Login?:", current_session.Get("username"))
 
-	tplpath := filepath.Join(os.Getenv("GOPATH"), "src/examples/gin-sample/templates/index.html")
+	tplpath := filepath.Join(os.Getenv("GOPATH"), "src/til-golang_learning/gin-sample/templates/index.html")
 	// tplpath := "templates/index.html"
 
 	tpl, err := pongo2.FromFile(tplpath)
