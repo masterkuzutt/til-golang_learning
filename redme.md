@@ -13,17 +13,18 @@
 - https://qiita.com/Azizim_A/items/66564b5dc7597717932b
 - とりあえずいまのところ　go getだけでもいい気がする。
 # Web Application Framework 
-### gin
-#### hot-reload
+## [Echo](https://echo.labstack.com/)
+## gin
+### hot-reload
 - https://stackoverflow.com/questions/50780008/can-golang-hot-swap-in-develop-mode
-##### [gin](https://github.com/codegangsta/gin)
+#### [gin](https://github.com/codegangsta/gin)
 - これがシンプルそうに見える
 - powershellでは動かない
 - main.goと同ディレクトリがカレントディレクトリじゃないと動かない。
-#### form
+### form
 - flask_wtfのようアドオンは見つけられてない。
 - https://qiita.com/CST_negi/items/99c7f2a2bd82bfb0fafd
-#### middleware
+### middleware
 - 何それ？
 - ルーティングの前後に処理を行う。
 - https://qiita.com/tobita0000/items/d2309cc3f0dd32006ead
@@ -55,6 +56,8 @@
 - https://manuel.kiessling.net/2012/09/28/applying-the-clean-architecture-to-go-applications/
 - syfm.hatenablog.com/entry/2017/12/20/021707
 - https://softwareengineering.stackexchange.com/questions/357052/clean-architecture-use-case-containing-the-presenter-or-returning-data
+- https://89hack.tech/serverside-golang-with-clean-architecture/
+    - これがよさげである。controllerからreturn させてpresenterをrouterから呼んでいる。 
 # test 
 - https://re-engines.com/2018/10/16/go-testify%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%A6%E3%83%86%E3%82%B9%E3%83%88%E4%BD%9C%E6%88%90/
 
