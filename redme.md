@@ -68,3 +68,6 @@
 # セキュアコーディング
 - https://golang.shop/post/go-scp-010-introduction-ja/
 # windows にgccインストール
+
+# お作法
+- https://future-architect.github.io/articles/20190713/
