@@ -2,13 +2,16 @@ package presenter
 
 import (
 	"fmt"
+	"til-golang_learning/gin-sample/adapter/context"
 )
 
-type ToConsolePresenter struct {
-	hoge []string
+type IUserListOutputPort interface {
+	Emit(context.UserListResponese)
 }
 
-func (p *ToConsolePresenter) Emit(data []string) {
-	fmt.Println(data)
+type ToConsolePresenter struct {
+}
 
+func (p *ToConsolePresenter) Emit(res context.UserListResponese) {
+	fmt.Println(res.Data)
 }

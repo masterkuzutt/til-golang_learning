@@ -1,4 +1,4 @@
-package route
+package handlers
 
 import (
 	"log"
@@ -18,8 +18,7 @@ func Root(c *gin.Context) {
 	current_session := sessions.Default(c)
 	log.Println("Login?:", current_session.Get("username"))
 
-	tplpath := filepath.Join(os.Getenv("GOPATH"), "src/til-golang_learning/gin-sample/templates/index.html")
-	// tplpath := "templates/index.html"
+	tplpath := filepath.Join(os.Getenv("GOPATH"), "src/til-golang_learning/gin-sample/handlers/templates/index.html")
 
 	tpl, err := pongo2.FromFile(tplpath)
 	if err != nil {
@@ -29,9 +28,9 @@ func Root(c *gin.Context) {
 	}
 
 	err = tpl.ExecuteWriter(pongo2.Context{
-		"title":        "Home",
-		"form":         nil,
-		"posts":        nil,
+		"title":           "Home",
+		"form":            nil,
+		"posts":           nil,
 		"current_session": current_session,
 	}, c.Writer)
 
