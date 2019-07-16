@@ -1,25 +1,20 @@
 package route
 
 import (
-
-	"net/http"
+	"til-golang_learning/gin-sample/externals/handlers"
 
 	"github.com/gin-contrib/sessions"
-	"github.com/gin-contrib/sessions/cookie"
 
 	"github.com/gin-contrib/sessions/memstore"
 	"github.com/gin-gonic/gin"
-
-	"til-golang_learning/gin-sample/externals/sqlite"
-	"til-golang_learning/gin-sample/externals/handers"
 )
 
-func test(){
+func Router() {
 	//[TODO] think when to put
 
 	router := gin.Default()
-	router.Use(sampleMiddleware())
-	router.Use(abortMiddleWare())
+	// router.Use(sampleMiddleware())
+	// router.Use(abortMiddleWare())
 
 	// pongo2では不要
 	// router.LoadHTMLGlob(filepath.Join(os.Getenv("GOPATH"), "src/til-golang_learning/gin-sample/templates/*"))
@@ -27,9 +22,10 @@ func test(){
 	// cookieの場合
 	// store := cookie.NewStore([]byte("scret"))
 	// memstoreの場合
+
 	store := memstore.NewStore([]byte("scret")) // go get github.com/quasoft/memstore
 	router.Use(sessions.Sessions("mysession", store))
-	router.Use(sampleSessionMiddleWare())
+	// router.Use(sampleSessionMiddleWare())
 
 	router.GET("/", handlers.Root)
 	router.GET("/index.html", handlers.Root)
@@ -41,5 +37,4 @@ func test(){
 	// router.POST("/login", login)
 
 	router.Run()
-
 }

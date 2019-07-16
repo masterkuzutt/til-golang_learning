@@ -5,15 +5,18 @@ import (
 	"os"
 	"path/filepath"
 
-	// "net/http"
-
-	"github.com/gin-contrib/sessions"
-	// "github.com/gin-contrib/sessions/cookie"
 	"github.com/flosch/pongo2"
+	"github.com/gin-contrib/sessions"
 	"github.com/gin-gonic/gin"
+
+	"til-golang_learning/gin-sample/adapter/controller"
+	"til-golang_learning/gin-sample/adapter/presenter"
 )
 
 func Root(c *gin.Context) {
+
+	presenter := &presenter.WebPresenter{}
+	contorller := &controller.UserListController{Interactor: Interactor}
 
 	current_session := sessions.Default(c)
 	log.Println("Login?:", current_session.Get("username"))
@@ -26,6 +29,8 @@ func Root(c *gin.Context) {
 		log.Println("Failed to load template:", tplpath)
 		log.Println(err)
 	}
+
+	userlist := controller.Execute("kuzu")
 
 	err = tpl.ExecuteWriter(pongo2.Context{
 		"title":           "Home",
