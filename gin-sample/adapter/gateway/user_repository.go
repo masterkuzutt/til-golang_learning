@@ -12,11 +12,15 @@ type User struct {
 	Password string
 }
 
-type UserRepository struct {
+type userRepository struct {
 	Conn *gorm.DB
 }
 
-func (r *UserRepository) Store(u domain.User) (id int, err error) {
+func NewUserRepository(db *gorm.DB) *userRepository {
+	return &userRepository{db}
+}
+
+func (r *userRepository) Store(u domain.User) (id int, err error) {
 	user := &User{
 		Username: u.Username,
 		Password: u.Password,
@@ -28,7 +32,7 @@ func (r *UserRepository) Store(u domain.User) (id int, err error) {
 	return int(user.ID), nil
 }
 
-func (r *UserRepository) FindByName(username string) (d []domain.User, err error) {
+func (r *userRepository) FindByName(username string) (d []domain.User, err error) {
 	users := []User{}
 
 	if err = r.Conn.Where("Username = ?", username).First(&users).Error; err != nil {

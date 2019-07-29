@@ -57,9 +57,13 @@
 - syfm.hatenablog.com/entry/2017/12/20/021707
 - https://softwareengineering.stackexchange.com/questions/357052/clean-architecture-use-case-containing-the-presenter-or-returning-data
 - https://89hack.tech/serverside-golang-with-clean-architecture/
-    - これがよさげである。controllerからreturn させてpresenterをrouterから呼んでいる。 
+    - これがよさげである。controllerからreturn させてpresenterをrouterから呼んでいる。
+    - controllerはadapterの具象クラスをインポートしている。内向きへの依存なので問題ない。
+    -  
 # test 
 - https://re-engines.com/2018/10/16/go-testify%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%A6%E3%83%86%E3%82%B9%E3%83%88%E4%BD%9C%E6%88%90/
+## VS Code の便利アドオン
+- https://blog.okazuki.jp/entry/2019/07/13/121021
 
 # Webアプリの話
 ## リダイレクトの時のステータスコードの話
@@ -69,5 +73,16 @@
 - https://golang.shop/post/go-scp-010-introduction-ja/
 # windows にgccインストール
 
-# お作法
-- https://future-architect.github.io/articles/20190713/
+# [お作法](https://future-architect.github.io/articles/20190713/)
+- 大体ファクトリー関数を使う
+- [参考](https://qiita.com/taizo/items/7e47f505ed0d96747ba2)
+
+```golang
+// ゼロ初期化
+wg := &sync.WaitGroup{} 
+
+// ファクトリー関数で初期化
+f, _ := os.Create("new.zip")
+w := zip.NewWriter(f)
+
+```

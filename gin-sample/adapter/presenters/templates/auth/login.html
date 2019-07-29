@@ -41,6 +41,8 @@
             </p>
     </div>
 </form>
-<p>New User? <a href="{{ url_for('auth.register') }}">Click to Register!</a></p>
+{% comment %} <p>New User? <a href="{{ url_for('auth.register') }}">Click to Register!</a></p> {% endcomment %}
+{% comment %} <p>New User? <a href="test{{ templates.Url_for('register') }}">Click to Register!</a></p> {% endcomment %}
+<p>New User? <a href="{{ set.Globals['global_valiable'] }}">Click to Register!</a></p>
 
 {% endblock %}

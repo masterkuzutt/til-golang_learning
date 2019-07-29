@@ -10,11 +10,7 @@ import (
 	// "github.com/gin-contrib/sessions/memstore"
 	// "github.com/gin-gonic/gin"
 
-	"til-golang_learning/gin-sample/adapter/controller"
-	"til-golang_learning/gin-sample/adapter/gateway"
-	"til-golang_learning/gin-sample/adapter/presenter"
-	"til-golang_learning/gin-sample/externals/sqlite"
-	"til-golang_learning/gin-sample/usecase"
+	"til-golang_learning/gin-sample/externals/routes"
 )
 
 // func sampleMiddleware() gin.HandlerFunc {
@@ -87,11 +83,11 @@ func main() {
 	// router.POST("/login", login)
 
 	// router.Run()
-	repository := &gateway.UserRepository{Conn: sqlite.Connect()}
-	presenter := &presenter.ToConsolePresenter{}
-	// interactor := &usecase.UserInteractor{UserRepository: repository, UserPresenter: presenter}
-	interactor := &usecase.UserInteractor{UserRepository: repository}
-	controller := &controller.UserListController{Interactor: interactor}
-	presenter.Emit(controller.Execute("kuzu"))
-
+	// repository := &gateway.UserRepository{Conn: sqlite.Connect()}
+	// presenter := &presenter.ToConsolePresenter{}
+	// // interactor := &usecase.UserInteractor{UserRepository: repository, UserPresenter: presenter}
+	// interactor := &usecase.UserInteractor{UserRepository: repository}
+	// controller := &controller.UserListController{Interactor: interactor}
+	// presenter.Emit(controller.Execute("kuzu"))
+	routes.Routes()
 }

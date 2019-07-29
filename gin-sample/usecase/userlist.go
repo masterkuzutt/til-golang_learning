@@ -5,19 +5,16 @@ import (
 	"til-golang_learning/gin-sample/adapter/interfaces"
 )
 
-type UserInteractor struct {
-	UserRepository interfaces.UserRepository
+type userlistInteractor struct {
+	repository interfaces.UserRepository
 	// UserPresenter  presenter.IUserListOutputPort
 }
 
-// [TODO]このユースケースが引数にEntityをとるのはまずいかもしれない。
-// 後で考える。
-// func (i *UserInteractor) Add(u domain.User) (int, error) {
-// 	return i.UserRepository.Store(u)
-// }
-
-func (i *UserInteractor) Handle(req context.UserListRequest) (res context.UserListResponese) {
-	users, err := i.UserRepository.FindByName(req.Username)
+func NewUserListInteractor(repo interfaces.UserRepository) *userlistInteractor {
+	return &userlistInteractor{repository: repo}
+}
+func (i *userlistInteractor) Handle(req context.UserListRequest) (res context.UserListResponese) {
+	users, err := i.repository.FindByName(req.Username)
 	if err != nil {
 
 	}

@@ -2,45 +2,93 @@ package handlers
 
 import (
 	"log"
-	"os"
-	"path/filepath"
+	"net/http"
 
-	"github.com/flosch/pongo2"
-	"github.com/gin-contrib/sessions"
 	"github.com/gin-gonic/gin"
 
-	"til-golang_learning/gin-sample/adapter/controller"
-	"til-golang_learning/gin-sample/adapter/presenter"
+	"github.com/gin-contrib/sessions"
+
+	"til-golang_learning/gin-sample/adapter/controllers"
+	"til-golang_learning/gin-sample/adapter/gateway"
+	"til-golang_learning/gin-sample/adapter/presenters"
+	"til-golang_learning/gin-sample/externals/sqlite"
+	"til-golang_learning/gin-sample/usecase"
 )
 
-func Root(c *gin.Context) {
+func Login(c *gin.Context) {
+	current_user := sessions.Default(c)
 
-	presenter := &presenter.WebPresenter{}
-	contorller := &controller.UserListController{Interactor: Interactor}
+	switch c.Request.Method {
 
-	current_session := sessions.Default(c)
-	log.Println("Login?:", current_session.Get("username"))
+	case "GET":
+		presenter := presenters.NewLoginPresenter(c)
+		presenter.Emit()
+	case "POST":
+		repository := gateway.NewUserRepository(sqlite.Connect())
+		interactor := usecase.NewLoginInteractor(repository)
+		controller := controllers.NewLoginController(interactor)
 
-	tplpath := filepath.Join(os.Getenv("GOPATH"), "src/til-golang_learning/gin-sample/handlers/templates/index.html")
+		username := c.PostForm("username")
+		password := c.PostForm("password")
 
-	tpl, err := pongo2.FromFile(tplpath)
-	if err != nil {
-		c.String(500, "Internal Server Error")
-		log.Println("Failed to load template:", tplpath)
-		log.Println(err)
+		res := controller.Execute(username, password)
+
+		log.Println(res)
+		if res.Status == "ok" {
+			log.Println("OK")
+			current_user.Set("username", username)
+			current_user.Save()
+			c.Redirect(http.StatusMovedPermanently, "/index.html")
+
+		} else {
+			log.Println("NG")
+			presenter := presenters.NewLoginPresenter(c)
+			presenter.Emit()
+
+		}
+		//[TODO]form dataをここで受けてpresenterを読んでるのがすごく気持ち悪いような気もする。presenterを表示だけにするなら
 	}
+}
+func Root(c *gin.Context) {
+	//[TODO] ユーザリスト自体不要
+	repository := gateway.NewUserRepository(sqlite.Connect())
+	interactor := usecase.NewUserListInteractor(repository)
+	controller := controllers.NewUserListController(interactor)
 
-	userlist := controller.Execute("kuzu")
+	presenter := presenters.NewUserListPresenter(c)
 
-	err = tpl.ExecuteWriter(pongo2.Context{
-		"title":           "Home",
-		"form":            nil,
-		"posts":           nil,
-		"current_session": current_session,
-	}, c.Writer)
+	presenter.Emit(controller.Execute(""))
+}
 
-	if err != nil {
-		c.String(500, "Internal Server Error")
-		log.Println(err)
+func Register(c *gin.Context) {
+	// セッション管理はこっちにあってもいい気がする。
+	//presenterには本当にテンプレートのレンダーだけにするか？そうすればJSONにも対応できるのでは。
+
+	// current_user := sessions.Default(c)
+	// current_user.Set("is_anonymous", true)
+	// current_user.Save()
+
+	switch c.Request.Method {
+
+	case "GET":
+		presenter := presenters.NewRegisterPresenter(c)
+		presenter.Emit()
+	case "POST":
+		repository := gateway.NewUserRepository(sqlite.Connect())
+		interactor := usecase.NewRegisterInteractor(repository)
+		controller := controllers.NewRegisterController(interactor)
+
+		username := c.PostForm("username")
+		password := c.PostForm("password")
+
+		res := controller.Execute(username, password)
+		if res.Status == "ok" {
+			c.Redirect(http.StatusMovedPermanently, "/login.html")
+		} else {
+			presenter := presenters.NewRegisterPresenter(c)
+			presenter.Emit()
+
+		}
+		//[TODO]form dataをここで受けてpresenterを読んでるのがすごく気持ち悪いような気もする。presenterを表示だけにするなら
 	}
 }
