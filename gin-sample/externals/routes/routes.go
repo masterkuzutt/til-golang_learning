@@ -1,14 +1,25 @@
 package routes
 
 import (
+	"net/http"
 	"til-golang_learning/gin-sample/externals/handlers"
-
-	"github.com/gin-contrib/sessions"
-
-	"github.com/gin-contrib/sessions/memstore"
-	"github.com/gin-gonic/gin"
 )
 
+// net/http
+func Routes() {
+	mux := http.NewServeMux()
+	// fs := http.FileServer(http.Dir("public"))
+	mh1 := &handlers.CustomMessageHandler{Message: "hogehogeho"}
+	mh2 := http.HandlerFunc(handlers.CustomMessageHandlerFunc)
+	mux.Handle("/", mh1)
+	mux.Handle("/index.html", mh2)
+	mux.Handle("/top.html", handlers.ClosureCustomMessageHandlerFunc("hogehogehogehogehoge"))
+
+	http.ListenAndServe(":8080", mux)
+}
+
+// Gin
+/*
 func Routes() {
 	//[TODO] think when to put
 
@@ -28,3 +39,4 @@ func Routes() {
 
 	router.Run()
 }
+*/

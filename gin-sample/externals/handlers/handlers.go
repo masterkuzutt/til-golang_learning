@@ -1,6 +1,7 @@
 package handlers
 
 import (
+	"fmt"
 	"log"
 	"net/http"
 
@@ -14,6 +15,25 @@ import (
 	"til-golang_learning/gin-sample/externals/sqlite"
 	"til-golang_learning/gin-sample/usecase"
 )
+
+type CustomMessageHandler struct {
+	Message string
+}
+
+func (m *CustomMessageHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+	fmt.Fprintf(w, m.Message)
+}
+
+func CustomMessageHandlerFunc(w http.ResponseWriter, r *http.Request) {
+	fmt.Fprintf(w, "Handler func yade")
+}
+
+func ClosureCustomMessageHandlerFunc(message string) http.HandlerFunc {
+	return http.HandlerFunc(
+		func(w http.ResponseWriter, r *http.Request) {
+			fmt.Fprintf(w, message)
+		})
+}
 
 func Login(c *gin.Context) {
 	current_user := sessions.Default(c)
